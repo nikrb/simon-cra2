@@ -13,7 +13,7 @@ export default class ControlButton extends React.Component {
   };
   render = () => {
     const box = this.state.pressed? "0px 0px 0px #888888" : "0px 2px 5px #888888";
-    let button_style = {...this.props.button_style,
+    const button_style = {...this.props.buttonStyle,
       borderRadius: "100%",
       boxShadow: box,
       width: "5%",

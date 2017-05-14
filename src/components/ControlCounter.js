@@ -43,7 +43,6 @@ export default class ControlCounter extends React.Component {
   };
 
   render = () => {
-    console.log( "counter props style:", this.props.controlStyle);
     let style = {...this.props.controlStyle,
       color: "red",
       position: "absolute",

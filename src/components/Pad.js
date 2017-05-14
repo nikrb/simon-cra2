@@ -41,7 +41,6 @@ export default class Pad extends React.Component {
   render(){
     let padStyle = {...this.props.padStyle,
       cursor: "pointer",
-      width: "50%",
       position: "absolute",
       zIndex: "102"
     };

@@ -25,7 +25,6 @@ class App extends React.Component {
   pads = [];
 
   componentWillMount = () => {
-    console.log( "button red:", img.buttonRed);
   };
   generateSequence = () => {
     let seq = [];
@@ -112,38 +111,40 @@ class App extends React.Component {
     this.setState( { strict_mode : on});
   };
   render = () => {
-    const img_style = {
-      width: "100%"
+    const container = {
+      position: "absolute"
     };
     return (
       <div className="App">
-        <img style={img_style} src={img.simonBase} alt="no pic" />
-        <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound1.mp3"
-          padStyle={{top:"0", left:"0"}} padNdx={0} padClick={this.padClick}
-          padEnabled={this.state.pads_enabled}
-          padSrcDull={img.padGreenDull} padSrcBright={img.padGreenBright} />
-        <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound2.mp3"
-          padStyle={{top:"0", left:"50%"}} padNdx={1} padClick={this.padClick}
-          padEnabled={this.state.pads_enabled}
-          padSrcDull={img.padRedDull} padSrcBright={img.padRedBright}/>
-        <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound3.mp3"
-          padStyle={{top:"50%", left:"0"}} padNdx={2} padClick={this.padClick}
-          padEnabled={this.state.pads_enabled}
-          padSrcDull={img.padYellowDull} padSrcBright={img.padYellowBright} />
-        <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound4.mp3"
-          padStyle={{top:"50%", left:"50%"}} padNdx={3} padClick={this.padClick}
-          padEnabled={this.state.pads_enabled}
-          padSrcDull={img.padBlueDull} padSrcBright={img.padBlueBright}/>
-        <ControlButton buttonStyle={{top:"53%", left:"48.5%"}} clicked={this.startClicked}
-          buttonSrc={img.buttonRed} />
-        <ControlButton buttonStyle={{ top:"53%", left:"60%"}} clicked={this.strictClicked}
-          buttonSrc={img.buttonYellow} />
-        <ControlLight  controlStyle={{top:"50%", left:"61.5%"}}
-          lightOn={this.state.strict_mode}
-          lightSrcOff={img.buttonYellow} lightSrcOn={img.buttonRed} />
-        <ControlCounter errorDisplayFinished={this.errorFinished}
-          sound="./audio/wrong.mp3"  show_error={this.state.display_error}
-          controlStyle={{ top:"53%", left:"38%"}} display_count={this.state.display_count} />
+        <div style={container}>
+          <img src={img.simonBase} alt="no pic" />
+          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound1.mp3"
+            padStyle={{top:"0", left:"0"}} padNdx={0} padClick={this.padClick}
+            padEnabled={this.state.pads_enabled}
+            padSrcDull={img.padGreenDull} padSrcBright={img.padGreenBright} />
+          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound2.mp3"
+            padStyle={{top:"0", left:"50%"}} padNdx={1} padClick={this.padClick}
+            padEnabled={this.state.pads_enabled}
+            padSrcDull={img.padRedDull} padSrcBright={img.padRedBright}/>
+          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound3.mp3"
+            padStyle={{top:"50%", left:"0"}} padNdx={2} padClick={this.padClick}
+            padEnabled={this.state.pads_enabled}
+            padSrcDull={img.padYellowDull} padSrcBright={img.padYellowBright} />
+          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+            padStyle={{top:"50%", left:"50%"}} padNdx={3} padClick={this.padClick}
+            padEnabled={this.state.pads_enabled}
+            padSrcDull={img.padBlueDull} padSrcBright={img.padBlueBright}/>
+          <ControlButton buttonStyle={{top:"53%", left:"48.5%"}} clicked={this.startClicked}
+            buttonSrc={img.buttonRed} />
+          <ControlButton buttonStyle={{ top:"53%", left:"60%"}} clicked={this.strictClicked}
+            buttonSrc={img.buttonYellow} />
+          <ControlLight  controlStyle={{top:"50%", left:"61.5%"}}
+            lightOn={this.state.strict_mode}
+            lightSrcOff={img.buttonYellow} lightSrcOn={img.buttonRed} />
+          <ControlCounter errorDisplayFinished={this.errorFinished}
+            sound="./audio/wrong.mp3"  show_error={this.state.display_error}
+            controlStyle={{ top:"53%", left:"38%"}} display_count={this.state.display_count} />
+        </div>
       </div>
     );
   };
