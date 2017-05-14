@@ -1,23 +1,19 @@
-import React, {Component} from 'react';
-import {getTransparencyAtXY} from "./Utils";
+import React from 'react';
 
-export default class ControlButton extends Component {
-  constructor( props){
-    super( props);
-    this.state = {
-      pressed : false
-    }
-  }
-  mouseDown = e => {
+export default class ControlButton extends React.Component {
+  state = {
+    pressed: false
+  };
+  mouseDown = (e) => {
     this.setState( { pressed : true});
-  }
-  mouseRelease = e => {
+  };
+  mouseRelease = (e) => {
     this.setState( { pressed: false});
     this.props.clicked( e);
-  }
-  render(){
+  };
+  render = () => {
     const box = this.state.pressed? "0px 0px 0px #888888" : "0px 2px 5px #888888";
-    let button_style = {
+    let button_style = {...this.props.button_style,
       borderRadius: "100%",
       boxShadow: box,
       width: "5%",
@@ -25,11 +21,9 @@ export default class ControlButton extends Component {
       position: "absolute",
       zIndex: "105"
     };
-    button_style.top = this.props.top;
-    button_style.left = this.props.left;
     return (
       <img src={this.props.buttonSrc} onMouseDown={this.mouseDown}
-        onMouseUp={this.mouseRelease} style={button_style} />
+        onMouseUp={this.mouseRelease} style={button_style} alt="no pic" />
     );
-  }
+  };
 }

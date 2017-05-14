@@ -1,0 +1,23 @@
+import buttonRed from './buttonRed.png';
+import buttonYellow from './buttonYellow.png';
+import padBlueBright from './padBlueBright.png';
+import padBlueDull from './padBlueDull.png';
+import padGreenBright from './padGreenBright.png';
+import padGreenDull from './padGreenDull.png';
+import padRedBright from './padRedBright.png';
+import padRedDull from './padRedDull.png';
+import padYellowBright from './padYellowBright.png';
+import padYellowDull from './padYellowDull.png';
+import simonBase from './simonBase.png';
+
+export {buttonRed};
+export {buttonYellow};
+export {padBlueBright};
+export {padBlueDull};
+export {padGreenBright};
+export {padGreenDull};
+export {padRedBright};
+export {padRedDull};
+export {padYellowBright};
+export {padYellowDull};
+export {simonBase};

@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class ControlButton extends Component {
+// FIXME: do we need to derive this from react component?
+export default class ControlButton extends React.Component {
   render(){
-    let button_style = {
+    let button_style = {...this.props.buttonStyle,
       width: "2%",
       cursor: "pointer",
       position: "absolute",
       zIndex: "105"
     };
-    button_style.top = this.props.top;
-    button_style.left = this.props.left;
+    const {lightOn, lightSrcOn, lightSrcOff} = this.props;
     return (
-      <img src={this.props.lightOn ? this.props.lightSrcOn : this.props.lightSrcOff} style={button_style} />
+      <img src={lightOn ? lightSrcOn : lightSrcOff} style={button_style} alt="no pic" />
     );
   }
 }
