@@ -21,8 +21,8 @@ export default class Pad extends React.Component {
     const alpha = getTransparencyAtXY(e);
     if( this.props.padEnabled && alpha > 0){
       this.setBright( true);
-      this.sound.currentTime = 0;
-      this.sound.play();
+      this.props.sound.currentTime = 0;
+      this.props.sound.play();
     }
   };
   padReleased = (e) => {
@@ -46,7 +46,7 @@ export default class Pad extends React.Component {
     };
     const {padSrcBright, padSrcDull} = this.props;
     return (
-      <img style={padStyle} src={(this.state.litup) ? padSrcBright:padSrcDull}
+      <img style={padStyle} src={(this.props.litup || this.state.litup) ? padSrcBright:padSrcDull}
           onMouseDown={this.padClicked} onMouseUp={this.padReleased}
           onMouseLeave={this.padLeave} alt="no pic" />
     );

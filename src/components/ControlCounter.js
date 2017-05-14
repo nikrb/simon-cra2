@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class ControlCounter extends React.Component {
   state = {
-    display_error: ""
+    display_error: "!!"
   };
   oopsSound = null;
   flash_count = 0;
@@ -19,9 +19,10 @@ export default class ControlCounter extends React.Component {
   startFlashError = () =>{
     this.show_error = true;
     this.flash_error = 4;
-    this.flash_visible = false;
+    this.flash_visible = true;
     this.playOopsSound();
-    this.flashError();
+    // this.flashError();
+    setTimeout( this.flashError, 500);
   };
   flashError = () => {
     if( this.flash_error > 0){

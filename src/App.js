@@ -6,9 +6,12 @@ import ControlButton from './components/ControlButton';
 import ControlLight from './components/ControlLight';
 import ControlCounter from './components/ControlCounter';
 import * as img from './img';
+import wrong_sound from './audio/wrong.mp3';
 
 class App extends React.Component {
   state = {
+    // which pads are lit up
+    pads : [false, false, false, false],
     pads_enabled : false,
     strict_mode : false,
     display_count : "--",
@@ -22,9 +25,15 @@ class App extends React.Component {
   current_sequence = [];
   // keeps track of current sequence element for playback and user guesses
   current_sequence_ndx = 0;
-  pads = [];
+  sound_srcs = [
+    "//s3.amazonaws.com/freecodecamp/simonSound1.mp3",
+    "//s3.amazonaws.com/freecodecamp/simonSound2.mp3",
+    "//s3.amazonaws.com/freecodecamp/simonSound3.mp3",
+    "//s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+  ];
 
   componentWillMount = () => {
+    this.sounds = this.sound_srcs.map( (src) => { return new Audio( src);});
   };
   generateSequence = () => {
     let seq = [];
@@ -42,14 +51,17 @@ class App extends React.Component {
   // light up next colour pad in sequence
   nextSequence = () => {
     const colour_ndx = this.current_sequence[this.current_sequence_ndx];
-    this.pads[colour_ndx].play();
+    const new_pads = this.state.pads.map( ( lit, ndx) => { return ndx === colour_ndx;});
+    this.setState( { pads: new_pads});
+    this.sounds[colour_ndx].play();
     setTimeout( this.turnPadOff, 700);
   };
   // turn pad light off then move to next after a short delay
   turnPadOff = () => {
     const colour_ndx = this.current_sequence[this.current_sequence_ndx];
-    this.pads[colour_ndx].stop();
+    this.sounds[colour_ndx].pause();
     this.current_sequence_ndx += 1;
+    this.setState( { pads: [false, false, false, false]});
     if( this.current_sequence_ndx < this.current_sequence_length){
       setTimeout( this.nextSequence, 250);
     } else {
@@ -93,7 +105,7 @@ class App extends React.Component {
 
   // start next sequence of pad colours
   startNextSequence = () => {
-    this.setState( { display_count: ""+this.current_sequence_length});
+    this.setState( { display_count: ""+this.current_sequence_length, show_error: false});
     setTimeout( this.startSequencePlayback, 500);
   };
   startClicked = (e) => {
@@ -118,19 +130,19 @@ class App extends React.Component {
       <div className="App">
         <div style={container}>
           <img src={img.simonBase} alt="no pic" />
-          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound1.mp3"
+          <Pad sound={this.sounds[0]} litup={this.state.pads[0]}
             padStyle={{top:"0", left:"0"}} padNdx={0} padClick={this.padClick}
             padEnabled={this.state.pads_enabled}
             padSrcDull={img.padGreenDull} padSrcBright={img.padGreenBright} />
-          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound2.mp3"
+          <Pad sound={this.sounds[1]} litup={this.state.pads[1]}
             padStyle={{top:"0", left:"50%"}} padNdx={1} padClick={this.padClick}
             padEnabled={this.state.pads_enabled}
             padSrcDull={img.padRedDull} padSrcBright={img.padRedBright}/>
-          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound3.mp3"
+          <Pad sound={this.sounds[2]} litup={this.state.pads[2]}
             padStyle={{top:"50%", left:"0"}} padNdx={2} padClick={this.padClick}
             padEnabled={this.state.pads_enabled}
             padSrcDull={img.padYellowDull} padSrcBright={img.padYellowBright} />
-          <Pad sound="//s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+          <Pad sound={this.sounds[3]} litup={this.state.pads[3]}
             padStyle={{top:"50%", left:"50%"}} padNdx={3} padClick={this.padClick}
             padEnabled={this.state.pads_enabled}
             padSrcDull={img.padBlueDull} padSrcBright={img.padBlueBright}/>
@@ -142,7 +154,7 @@ class App extends React.Component {
             lightOn={this.state.strict_mode}
             lightSrcOff={img.buttonYellow} lightSrcOn={img.buttonRed} />
           <ControlCounter errorDisplayFinished={this.errorFinished}
-            sound="./audio/wrong.mp3"  show_error={this.state.display_error}
+            sound={wrong_sound}  show_error={this.state.show_error}
             controlStyle={{ top:"53%", left:"38%"}} display_count={this.state.display_count} />
         </div>
       </div>
